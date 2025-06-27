@@ -9,5 +9,5 @@
 # Main Achievements:    
 * Fetched user-selected stock data from Yahoo Finance API
 * Performed feature engineering and applied predictive machine learning models to forecast returns
-∗ Automated email delivery of prediction results to end-users
-∗ Evaluated feature effectiveness through backtesting   
+* Automated email delivery of prediction results to end-users
+* Evaluated feature effectiveness through backtesting   
