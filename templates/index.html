@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Prediction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+        }
+        .form-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #34495e;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        .stock-group {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .stock-group label {
+            width: 100%;
+            font-size: 1.1em;
+            color: #2c3e50;
+        }
+        .stock-input {
+            flex: 1;
+            min-width: 150px;
+        }
+        .input-icon {
+            position: relative;
+        }
+        .input-icon i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7f8c8d;
+        }
+        .input-icon input {
+            padding-left: 35px;
+        }
+        button {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            display: block;
+            margin: 20px auto;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(45deg, #2980b9, #3498db);
+        }
+        .error {
+            color: #e74c3c;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .success {
+            color: #2ecc71;
+            text-align: center;
+            margin-top: 10px;
+        }
+        @media (max-width: 600px) {
+            .stock-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1><i class="fas fa-chart-line"></i> Stock Prediction Program</h1>
+        <form action="{{ url_for('submit') }}" method="POST">
+            <div class="form-group">
+                <label for="userName">User Name (for report title):</label>
+                <div class="input-icon">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="userName" name="userName" placeholder="Enter name, e.g., John Doe" required>
+                </div>
+            </div>
+
+            <h3><i class="fas fa-coins"></i> Stock Information (Enter 5 stocks)</h3>
+            <div class="stock-group">
+                <label>Stock 1:</label>
+                <div class="stock-input input-icon">
+                    <i class="fas fa-tag"></i>
+                    <input type="text" name="stockName1" placeholder="Stock ticker, e.g., AAPL" required>
+                </div>
+                <div class="stock-input input-icon">
+                    <i class="fas fa-calendar"></i>
+                    <input type="number" name="holdingDays1" min="1" placeholder="Holding days, e.g., 27" required>
+                </div>
+                <div class="stock-input input-icon">
+                    <i class="fas fa-cubes"></i>
+                    <input type="number" name="stockQuantity1" min="1" placeholder="Quantity, e.g., 100" required>
+                </div>
+            </div>
+            <div class="stock-group">
+                <label>Stock 2:</label>
+                <div class="stock-input input-icon">
+                    <i class="fas fa-tag"></i>
+                    <input type="text" name="stockName2" placeholder="Stock ticker, e.g., MSFT" required>
+                </div>
+                <div class="stock-input input-icon">
+                    <i class="fas fa-calendar"></i>
+                    <input type="number" name="holdingDays2" min="1" placeholder="Holding days, e.g., 30" required>
+                </div>
+                <div class="stock-input input-icon">
+                    <i class="fas fa-cubes"></i>
+                    <input type="number" name="stockQuantity2" min="1" placeholder="Quantity, e.g., 100" required>
+                </div>
+            </div>
+            <div class="stock-group">
+                <label>Stock 3:</label>
+                <div class="stock-input input-icon">
+                    <i class="fas fa-tag"></i>
+                    <input type="text" name="stockName3" placeholder="Stock ticker, e.g., TSLA" required>
+                </div>
+                <div class="stock-input input-icon">
+                    <i class="fas fa-calendar"></i>
+                    <input type="number" name="holdingDays3" min="1" placeholder="Holding days, e.g., 25" required>
+                </div>
+                <div class="stock-input input-icon">
+                    <i class="fas fa-cubes"></i>
+                    <input type="number" name="stockQuantity3" min="1" placeholder="Quantity, e.g., 100" required>
+                </div>
+            </div>
+            <div class="stock-group">
+                <label>Stock 4:</label>
+                <div class="stock-input input-icon">
+                    <i class="fas fa-tag"></i>
+                    <input type="text" name="stockName4" placeholder="Stock ticker, e.g., GOOGL" required>
+                </div>
+                <div class="stock-input input-icon">
+                    <i class="fas fa-calendar"></i>
+                    <input type="number" name="holdingDays4" min="1" placeholder="Holding days, e.g., 28" required>
+                </div>
+                <div class="stock-input input-icon">
+                    <i class="fas fa-cubes"></i>
+                    <input type="number" name="stockQuantity4" min="1" placeholder="Quantity, e.g., 100" required>
+                </div>
+            </div>
+            <div class="stock-group">
+                <label>Stock 5:</label>
+                <div class="stock-input input-icon">
+                    <i class="fas fa-tag"></i>
+                    <input type="text" name="stockName5" placeholder="Stock ticker, e.g., AMZN" required>
+                </div>
+                <div class="stock-input input-icon">
+                    <i class="fas fa-calendar"></i>
+                    <input type="number" name="holdingDays5" min="1" placeholder="Holding days, e.g., 29" required>
+                </div>
+                <div class="stock-input input-icon">
+                    <i class="fas fa-cubes"></i>
+                    <input type="number" name="stockQuantity5" min="1" placeholder="Quantity, e.g., 100" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="to_email">Email to receive prediction results:</label>
+                <div class="input-icon">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="to_email" name="to_email" placeholder="example@domain.com" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="sender_email">Sender Gmail address:</label>
+                <div class="input-icon">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="sender_email" name="sender_email" placeholder="your_email@gmail.com" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="sender_password">Sender Gmail app-specific password:</label>
+                <div class="input-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="sender_password" name="sender_password" placeholder="App-specific password" required>
+                </div>
+            </div>
+
+            <button type="submit"><i class="fas fa-paper-plane"></i> Submit</button>
+        </form>
+
+        {% if message %}
+            <p class="{{ 'success' if success else 'error' }}">{{ message }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
