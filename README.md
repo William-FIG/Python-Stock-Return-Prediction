@@ -6,7 +6,7 @@
 * Zou Boyu
 * Cui Zexu
 
-# Main Achievements:
+# Main Achievements:  
 * Fetched user-selected stock data from Yahoo Finance API, performed feature engineering, and
 applied predictive machine learning models to forecast returns    
 ∗ Automated email delivery of prediction results to end-users    
